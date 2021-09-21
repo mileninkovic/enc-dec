@@ -10,11 +10,8 @@ let encode = () => {
         let val = char.charCodeAt()+3;
         let code = String.fromCharCode(val);
         if (code === "#") {
-            console.log("Virker!");
             spaceArr.push(index);
-            console.log(spaceArr);
             encString += randomSymbol[Math.floor(Math.random() * 9)];
-
         } else {
             encString += code;
         }
@@ -26,14 +23,13 @@ let encode = () => {
 let decode = () => {
     let decoded = Buffer.from(encoded, 'hex').toString();
     console.log(decoded);
-    let splitString = decoded.split("");
-    let splitArray = decoded.split(/(\s)/);
-    let splitDecode = splitArray[2].split(",");
-    let decodable = splitArray[0].split("");
-    decodable.forEach((char, index ) => {
+    let splitEnc = decoded.split(/(\s)/);
+    let encText = splitEnc[0].split("");
+    let spaceIndex = splitEnc[2].split(",");
+    encText.forEach((char, index ) => {
         let val = char.charCodeAt()-3;
         let code = String.fromCharCode(val);
-        if (splitDecode.indexOf(index.toString()) !== -1) {
+        if (spaceIndex.indexOf(index.toString()) !== -1) {
             decString += " ";
         } else {
             decString += code;
